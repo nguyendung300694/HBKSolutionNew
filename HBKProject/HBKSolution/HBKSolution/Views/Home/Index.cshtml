@@ -1,0 +1,351 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .hoverable:hover {
+        box-shadow: 0px 5px 5px #989797;
+        -ms-transform: translate(0px,-3px);
+        -webkit-transform: translate(0px,-3px);
+        transform: translate(0px,-3px);
+    }
+
+    .card.collection-card img {
+        width: 100% !important;
+    }
+
+    .collection-card .stripe a p {
+        letter-spacing: 0;
+    }
+
+    .collection-card .light a p {
+        font-weight: bold;
+        color: black;
+    }
+
+    @@media (min-width: 768px) {
+        .carousel-multi-item .col-md-4 {
+            float: left;
+            width: 33.333333%;
+            max-width: 100%;
+        }
+    }
+
+    .carousel-multi-item .carousel-indicators {
+        margin-bottom: -2em;
+    }
+
+        .carousel-multi-item .carousel-indicators li {
+            margin-bottom: -1.88rem;
+        }
+
+        .carousel-multi-item .carousel-indicators li {
+            height: 1.25rem;
+            width: 1.25rem;
+            max-width: 1.25rem;
+            background-color: #4285f4;
+            margin-bottom: -3.75rem;
+        }
+
+        .carousel-multi-item .carousel-indicators .active {
+            height: 1.56rem;
+            width: 1.56rem;
+            max-width: 1.56rem;
+            background-color: #4285f4;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+    .card.card-ecommerce .card-footer {
+        background-color: transparent;
+    }
+
+    .card.card-cascade.narrower .view.view-cascade {
+        margin-left: 4%;
+        margin-right: 4%;
+        margin-top: -1.25rem;
+    }
+
+    .card.card-cascade .view.view-cascade {
+        -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+        box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+        -webkit-border-radius: .25rem;
+        border-radius: .25rem;
+    }
+
+    .btn-floating.btn-sm .fa-chevron-left {
+        padding-top: 1px;
+        padding-right: 2px;
+    }
+
+    .btn-floating.btn-sm .fa-chevron-right {
+        padding-top: 1px;
+        padding-left: 2px;
+    }
+
+    .card-img-top {
+        width: 100%;
+        border-top-left-radius: calc(.25rem - 1px);
+        border-top-right-radius: calc(.25rem - 1px);
+    }
+
+    .carousel-multi-item .card-cascade.narrower {
+        margin-top: 1.25rem;
+        margin-bottom: .3rem;
+    }
+
+    .carousel-item {
+        position: relative;
+        display: none;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 100%;
+        transition: -webkit-transform .6s ease;
+        transition: transform .6s ease;
+        transition: transform .6s ease,-webkit-transform .6s ease;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+    }
+</style>
+
+<!-- Section: Products v.4 -->
+<section class="text-center my-5">
+    <!-- Page header -->
+    <div class="col-xs-12">
+        <div class="title-block">
+            <div class="wrap-content">
+
+                <h2 class="title-group">DANH MỤC</h2>
+
+                <div class="title-group-note">Sản phẩm của chúng tôi</div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- ./Page header -->
+    <!-- Section heading -->
+    @*<h2 class="h1-responsive font-weight-bold text-center my-5">Sản phẩm của chúng tôi</h2>*@
+    <!-- Section description -->
+    @*<p class="grey-text text-center w-responsive mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>*@
+
+    <!-- Grid row -->
+    <div class="row">
+        @{
+            var count = 0;
+            foreach (var item in ViewBag.ListCategory)
+            {
+                count++;
+                   <!-- Grid column -->
+                <div class="col-lg-3 col-md-6 mb-lg-0 mb-4">
+                    <!-- Collection card -->
+                    <div class="card collection-card z-depth-1-half hoverable">
+                        <!-- Card image -->
+                        <div class="view zoom">
+                            <img src="@Url.Content(item.ProductCategoryExtend.FilePath)" class="img-fluid" alt="Loại sản phẩm">
+                            <div class="stripe @( count % 2 == 0 ? "light" : "dark") ">
+                                <a href="@Url.Action("Products", "Product")?productCategoryId=@item.ProductCategoryId" id="@item.ProductCategoryId">
+                                    <p>
+                                        @item.ProductCategoryName
+                                        <i class="fa fa-angle-right"></i>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Card image -->
+                    </div>
+                    <!-- Collection card -->
+                </div>
+        <!-- Grid column -->
+            }
+        }
+    </div>
+    <!-- Grid row -->
+
+</section>
+<!-- Section: Products v.4 -->
+<!-- Section: Products v.5 -->
+<section class="text-center my-5 pb-5">
+    <!-- Page header -->
+    <div class="col-xs-12 pt-5">
+        <div class="title-block">
+            <div class="wrap-content">
+
+                <h2 class="title-group">SẢN PHẨM</h2>
+
+                <div class="title-group-note">Được quan tâm nhiều nhất</div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- ./Page header -->
+    <!-- Section heading -->
+    @* <h2 class="h1-responsive font-weight-bold text-center my-5">Our bestsellers</h2>*@
+    <!-- Section description -->
+    @*<p class="grey-text text-center w-responsive mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>*@
+
+    <!-- Carousel Wrapper -->
+    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+        <!-- Controls -->
+        <div class="controls-top pb-4">
+            <a class="btn-floating btn-sm primary-color waves-effect waves-light" href="#multi-item-example" data-slide="prev">
+                <i class="fa fa-chevron-left"></i>
+            </a>
+            <a class="btn-floating btn-sm primary-color waves-effect waves-light" href="#multi-item-example" data-slide="next">
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+        <!-- Controls -->
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li class="primary-color active" data-target="#multi-item-example" data-slide-to="0"></li>
+            <li class="primary-color" data-target="#multi-item-example" data-slide-to="1"></li>
+            <li class="primary-color" data-target="#multi-item-example" data-slide-to="2"></li>
+        </ol>
+        <!-- Indicators -->
+        <!-- Slides -->
+        <div class="carousel-inner" role="listbox">
+            <!-- First slide -->
+            @{
+                if (@ViewBag.ListHotProduct.Count > 0)
+                {
+                    int index = 0;
+                    for (int i = 0; i < 3; i++)
+                    {
+                        string active = i == 0 ? "active" : "";
+                        <div class="carousel-item @active">
+                            <div class="col-md-4 mb-2">
+                                <!-- Card -->
+                                <div class="card card-cascade narrower card-ecommerce">
+                                    <!-- Card image -->
+                                    <div class="view view-cascade overlay">
+                                        <img src="@Url.Content(@ViewBag.ListHotProduct[index].ProductExtend.FilePath)" class="card-img-top" alt="sample photo">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Card image -->
+                                    <!-- Card content -->
+                                    <div class="card-body card-body-cascade text-center">
+                                        <!-- Category & Title -->
+                                        <a href="@Url.Action("Products","Product")?productCategoryId=@ViewBag.ListHotProduct[index].ProductCategory.ProductCategoryId" class="text-muted">
+                                            <h5>@ViewBag.ListHotProduct[index].ProductCategory.ProductCategoryName</h5>
+                                        </a>
+                                        <h4 class="card-title my-4">
+                                            <strong>
+                                                <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index].ProductId">@ViewBag.ListHotProduct[index].ProductName</a>
+                                            </strong>
+                                        </h4>
+                                        <!-- Description -->
+                                        <p class="card-text">
+                                            @ViewBag.ListHotProduct[index].ProductContent
+                                        </p>
+                                        <!-- Card footer -->
+                                        <div class="card-footer px-1">
+                                            <span class="float-right">
+                                                <a class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Quick Look">
+                                                    <i class="fa fa-eye ml-3"></i>
+                                                    @ViewBag.ListHotProduct[index].View
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Card content -->
+                                </div>
+                                <!-- Card -->
+                            </div>
+                            <div class="col-md-4 mb-2 clearfix d-none d-md-block">
+                                <!-- Card -->
+                                <div class="card card-cascade narrower card-ecommerce">
+                                    <!-- Card image -->
+                                    <div class="view view-cascade overlay">
+                                        <img src="@Url.Content(@ViewBag.ListHotProduct[index+1].ProductExtend.FilePath)" class="card-img-top" alt="sample photo">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Card image -->
+                                    <!-- Card content -->
+                                    <div class="card-body card-body-cascade text-center">
+                                        <!-- Category & Title -->
+                                        <a href="@Url.Action("Products","Product")?productCategoryId=@ViewBag.ListHotProduct[index+1].ProductCategory.ProductCategoryId" class="text-muted">
+                                            <h5>@ViewBag.ListHotProduct[index + 1].ProductCategory.ProductCategoryName</h5>
+                                        </a>
+                                        <h4 class="card-title my-4">
+                                            <strong>
+                                                <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index+1].ProductId">@ViewBag.ListHotProduct[index + 1].ProductName</a>
+                                            </strong>
+                                        </h4>
+                                        <!-- Description -->
+                                        <p class="card-text">
+                                            @ViewBag.ListHotProduct[index + 1].ProductContent
+                                        </p>
+                                        <!-- Card footer -->
+                                        <div class="card-footer px-1">
+                                            <span class="float-right">
+                                                <a class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Quick Look">
+                                                    <i class="fa fa-eye ml-3"></i>
+                                                    @ViewBag.ListHotProduct[index + 1].View
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Card content -->
+                                </div>
+                                <!-- Card -->
+                            </div>
+                            <div class="col-md-4 mb-2 clearfix d-none d-md-block">
+                                <!-- Card -->
+                                <div class="card card-cascade narrower card-ecommerce">
+                                    <!-- Card image -->
+                                    <div class="view view-cascade overlay">
+                                        <img src="@Url.Content(@ViewBag.ListHotProduct[index+2].ProductExtend.FilePath)" class="card-img-top" alt="sample photo">
+                                        <a>
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
+                                    <!-- Card image -->
+                                    <!-- Card content -->
+                                    <div class="card-body card-body-cascade text-center">
+                                        <!-- Category & Title -->
+                                        <a href="@Url.Action("Products","Product")?productCategoryId=@ViewBag.ListHotProduct[index+2].ProductCategory.ProductCategoryId" class="text-muted">
+                                            <h5>@ViewBag.ListHotProduct[index + 2].ProductCategory.ProductCategoryName</h5>
+                                        </a>
+                                        <h4 class="card-title my-4">
+                                            <strong>
+                                                <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index+2].ProductId">@ViewBag.ListHotProduct[index + 2].ProductName</a>
+                                            </strong>
+                                        </h4>
+                                        <!-- Description -->
+                                        <p class="card-text">
+                                            @ViewBag.ListHotProduct[index + 2].ProductContent
+                                        </p>
+                                        <!-- Card footer -->
+                                        <div class="card-footer px-1">
+                                            <span class="float-right">
+                                                <a class="" data-toggle="tooltip" data-placement="top" title="" data-original-title="Quick Look">
+                                                    <i class="fa fa-eye ml-3"></i>
+                                                    @ViewBag.ListHotProduct[index + 2].View
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Card content -->
+                                </div>
+                                <!-- Card -->
+                            </div>
+                        </div>
+                        index += 3;
+                    }
+                }
+            }
+            <!-- First slide -->
+        </div>
+        <!-- Slides -->
+    </div>
+    <!-- Carousel Wrapper -->
+
+</section>
+<!-- Section: Products v.5 -->

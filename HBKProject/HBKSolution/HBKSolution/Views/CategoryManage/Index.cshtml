@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý loại sản phẩm";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+<style type="text/css">
+    .product-table td {
+        vertical-align: middle;
+    }
+
+    .block-with-text {
+        display: block;
+        display: -webkit-box;
+        max-width: 200px;
+        max-height: 109.2px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .control-panel {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    div.dataTables_wrapper {
+        /*max-height: 600px;*/
+        margin: 0 auto;
+        min-width: 600px;
+    }
+</style>
+
+
+<div class="form-group control-panel">
+    @Html.DropDownList("CategoryDropList", new SelectList(ViewBag.ListCategory, "ProductCategoryId", "ProductCategoryName"), "Chọn loại sản phẩm", new { @class = "form-control col-md-5" })
+    <button type="button" class="btn btn-sm btn-success waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add item">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+</div>
+
+<div class="row">
+    <!--Grid column-->
+    <div class="col-md-12 my-3 text-left">
+        <div class="card">
+            <div class="card-body">
+                <!-- Shopping Cart table -->
+                <div class="table-responsive">
+                    <table id="category-manage-table" class="table product-table">
+                        <!-- Table head -->
+                        <thead class="mdb-color lighten-5">
+                            <tr>
+                                <th width="30%" class="font-weight-bold text-center">
+                                    <strong>Hình ảnh</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>Tên</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>Mô tả</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>Giá</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>Lượt xem</strong>
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <!-- /.Table head -->
+                        <!-- Table body -->
+                        <tbody></tbody>
+                        <!-- /.Table body -->
+                    </table>
+                </div>
+                <!-- /.Shopping Cart table -->
+            </div>
+        </div>
+    </div>
+    <!--Grid column-->
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var table = $('#category-manage-table').DataTable({
+                "scrollY": "600px",
+                "scrollX:": true,
+                "paging": false,
+                "bSort": false,
+                "sDom": "Rlfrtip",
+                "scrollCollapse": true,
+                "responsive": true,
+            });
+
+            var _listProduct = null;
+
+            $('.dataTables_info').hide();
+
+            $('#category-manage-table_filter label').html('Tìm kiếm:<input type="search" class="" placeholder="" aria-controls="category-manage-table" />');
+
+            $('.dataTables_empty').text('Không có dữ liệu');
+
+            $('input[type="search"]').on('keyup', $(document) , function () {
+                var value = this.value.toLowerCase();
+                var categoryId = $('#CategoryDropList').val();
+                $('tbody').empty();
+                if (_listProduct) {
+                    var listProduct = _listProduct;
+                    listProduct = listProduct.filter(function (item) {
+                        console.log(item.ProductName.toLowerCase());
+                        return item.ProductName.toLowerCase().search(value) !== -1
+                            || item.View.toString().toLowerCase().search(value) !== -1
+                            || item.Price.toString().toLowerCase().search(value) !== -1;
+                    });
+                    onAddRowToTable(listProduct);
+                }
+            });
+
+            //Call Get Product Data By Category jsonResult Method
+            $('#CategoryDropList').change(function (e) {
+                var categoryId = $(this).val();
+                $('tbody').empty();
+                $.post('@Url.Action("GetListProductByCategoryId", "Product")', { categoryId: categoryId },
+                function (result) {
+                    if (result.listProduct) {
+                        _listProduct = result.listProduct;
+                        onAddRowToTable(result.listProduct);
+                    }
+                });
+            });
+
+            function onAddRowToTable(listProduct) {
+                var tr;
+                //Append each row to html table
+                for (var i = 0; i < listProduct.length; i++) {
+                    tr = $('<tr/>');
+                    var path = listProduct[i].FilePath;
+                    if (path) {
+                        path = path.substring(2);
+                    }
+                    tr.append('<td scope="row" class="text-center">' + '<img style="width:50%;" src="../' + path + '" alt="" class="img-fluid z-depth-0">' + '</td>');
+                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].ProductName + '</p>' + '</td>');
+                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].ProductContent + '</p>' + '</td>');
+                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].Price + '</p>' + '</td>');
+                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].View + '</p>' + '</td>');
+                    tr.append('<td class="text-center">' + '<button type="button" class="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" ' +
+                        ' data-original-title="Edit item"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><button type="button" ' +
+                        ' class="btn btn-sm btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" ' +
+                        ' title="" data-original-title="Remove item"><i class="fa fa-trash" aria-hidden="true"></i></button>' + '</td>');
+                    $('tbody').append(tr);
+                }
+            };
+        });
+
+    </script>
+}

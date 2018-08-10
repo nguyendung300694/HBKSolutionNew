@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "Giới thiệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .contact_address > h3:before {
+        content: "";
+    }
+
+    section.team-section .avatar img {
+        max-width: 200px;
+        height: auto;
+    }
+</style>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#carousel-fullpage').css('height', '50vh');
+        });
+    </script>
+}
+
+<section id="about-us-section" class="my-5">
+
+    <!-- Page header -->
+    <div class="col-xs-12">
+        <div class="title-block">
+            <div class="wrap-content">
+
+                <h2 class="title-group">GIỚI THIỆU</h2>
+
+                <div class="title-group-note">Thông tin về chúng tôi</div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- ./Page header -->
+    <!-- Section heading -->
+    @*<h2 class="h1-responsive font-weight-bold text-center my-5">Giới thiệu</h2>*@
+    <!-- Section description -->
+    <h3 class="h5-responsive font-weight-bold text-center my-4" style="font-weight: initial!important;"><i class="fa fa-caret-right" aria-hidden="true"></i> CÔNG TY TNHH MTV CÔNG NGHIỆP TÂN LONG <i class="fa fa-caret-left" aria-hidden="true"></i></h3>
+    <p class="text-center w-responsive mx-auto pb-1"><i class="fa fa-star-o" aria-hidden="true"></i> Ngày thành lập: tháng 6 năm 2017.</p>
+    <p class="text-center w-responsive mx-auto pb-1"><i class="fa fa-star-o" aria-hidden="true"></i> Lĩnh vực hoạt động: Chuyên cung cấp các thiết bị khí nén, thủy lực, thiết bị súng phun sơn.</p>
+    <p class="text-center w-responsive mx-auto pb-1"><i class="fa fa-star-o" aria-hidden="true"></i> Vốn điều lệ: 1,500,000,000 VND.</p>
+</section>
+
+@*<hr class="mb-5 mt-5 pb-3">*@
+
+<!-- Section: Team v.2 -->
+<section class="team-section text-center my-5">
+
+    <!-- Page header -->
+    <div class="col-xs-12 pt-5">
+        <div class="title-block">
+            <div class="wrap-content">
+
+                <h2 class="title-group">THÀNH VIÊN</h2>
+
+                <div class="title-group-note">Điều hành công ty</div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- Section heading -->
+    @*<h2 class="h1-responsive font-weight-bold my-5">Thành viên</h2>*@
+    <!-- Section description -->
+    @*<p class="grey-text w-responsive mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>*@
+
+    <!-- Grid row -->
+    <div class="row text-center">
+
+        <!-- Grid column -->
+        <div class="col-md-4 mb-md-0 mb-5">
+            <div class="avatar mx-auto">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="rounded z-depth-1-half" alt="Sample avatar">
+            </div>
+            <h4 class="font-weight-bold dark-grey-text my-4">Maria Kate</h4>
+            <h6 class="text-uppercase grey-text mb-3"><strong>Photographer</strong></h6>
+            <!-- Facebook-->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <!--Dribbble -->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-dribbble">
+                <i class="fa fa-dribbble"></i>
+            </a>
+            <!-- Twitter -->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-4 mb-md-0 mb-5">
+            <div class="avatar mx-auto">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(27).jpg" class="rounded z-depth-1-half" alt="Sample avatar">
+            </div>
+            <h4 class="font-weight-bold dark-grey-text my-4">John Doe</h4>
+            <h6 class="text-uppercase grey-text mb-3"><strong>Front-end Developer</strong></h6>
+            <!--Email-->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-email">
+                <i class="fa fa-envelope"></i>
+            </a>
+            <!-- Facebook-->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-fb">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <!-- GitHub-->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-git">
+                <i class="fa fa-github"></i>
+            </a>
+        </div>
+        <!-- Grid column -->
+        <!-- Grid column -->
+        <div class="col-md-4 mb-md-0 mb-5">
+            <div class="avatar mx-auto">
+                <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(31).jpg" class="rounded z-depth-1-half" alt="Sample avatar">
+            </div>
+            <h4 class="font-weight-bold dark-grey-text my-4">Sarah Melyah</h4>
+            <h6 class="text-uppercase grey-text mb-3"><strong>Web Developer</strong></h6>
+            <!--Linkedin -->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-li">
+                <i class="fa fa-linkedin "></i>
+            </a>
+            <!-- Twitter -->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-tw">
+                <i class="fa fa-twitter "></i>
+            </a>
+            <!--Pinterest -->
+            <a type="button" class="btn-floating btn-sm mx-1 mb-0 btn-pin">
+                <i class="fa fa-pinterest "></i>
+            </a>
+        </div>
+        <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+</section>
+<!-- Section: Team v.2 -->
+

@@ -1,0 +1,62 @@
+[
+  {
+    "outputFileName": "css/style.min.css",
+    "inputFiles": [
+      "css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "css/mdb.min.css",
+    "inputFiles": [
+      "css/mdb.css"
+    ]
+  },
+  {
+    "outputFileName": "css/bootstrap.min.css",
+    "inputFiles": [
+      "css/bootstrap.css"
+    ]
+  },
+  {
+    "outputFileName": "js/bootstrap.min.js",
+    "inputFiles": [
+      "js/bootstrap.js"
+    ]
+  },
+  {
+    "outputFileName": "js/mdb.min.js",
+    "inputFiles": [
+      "js/mdb.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/_layout_css/_layout.min.css",
+    "inputFiles": [
+      "Content/_layout_css/_layout.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/_layout_css/layout.min.css",
+    "inputFiles": [
+      "Content/_layout_css/layout.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/bootstrap.min.css",
+    "inputFiles": [
+      "Content/bootstrap.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/Site.min.css",
+    "inputFiles": [
+      "Content/Site.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/layout.min.css",
+    "inputFiles": [
+      "Content/layout.css"
+    ]
+  }
+]

@@ -1,0 +1,83 @@
+﻿@using HBKSolution.Services
+@{
+    ViewBag.Title = "Trang quản lý";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .navbar {
+        background-color: rgb(46, 57, 81) !important;
+    }
+
+    #management-container .nav {
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .nav > li > a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+    }
+
+    .nav-tabs > li > a {
+        margin-right: 2px;
+        line-height: 1.42857143;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: #555;
+        cursor: default;
+        background-color: #fff !important;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+    }
+
+    .nav-tabs > li > a:hover {
+        border-color: #eee #eee #ddd;
+    }
+
+    .nav > li > a:focus, .nav > li > a:hover {
+        text-decoration: none;
+        background-color: #eee;
+    }
+
+    .active a{
+        font-weight:500;
+    }
+</style>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#carousel-fullpage').css('height', '0vh');
+        });
+    </script>
+
+    @RenderSection("scripts", false);
+}
+
+<section id="management-container" class="my-5">
+    <!-- Page header -->
+    <div class="col-xs-12 my-5" style="padding-top:5%;">
+        <div class="title-block">
+            <div class="wrap-content">
+
+                <h2 class="title-group">TRANG QUẢN LÝ</h2>
+
+                <div class="title-group-note"></div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <ul class="nav nav-tabs">
+        <li class="@Html.isNavMenuActive("Index","CategoryManage")"><a href="@Url.Action("Index","CategoryManage")">Loại sản phẩm</a></li>
+        <li class="@Html.isNavMenuActive("Index","ProductManage")"><a href="@Url.Action("Index","ProductManage")">Sản phẩm</a></li>
+    </ul>
+    <br>
+    @RenderBody()
+</section>
+

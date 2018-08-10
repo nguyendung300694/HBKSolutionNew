@@ -1,0 +1,140 @@
+﻿
+<style>
+    footer.page-footer {
+        margin-top: 20px;
+        padding-top: 20px;
+        color: #fff;
+    }
+
+        footer.page-footer ul, ul.instagram-photos {
+            list-style-type: none;
+            padding: 0;
+        }
+
+    .page-footer .btn-floating {
+        border-radius: .2rem;
+    }
+</style>
+
+<footer class="page-footer text-center font-small mt-4 wow fadeIn" style="background-color: #2e3951!important;">
+    <!--Call to action-->
+    @*<div class="pt-4">
+            <a class="btn btn-outline-white" href="https://mdbootstrap.com/getting-started/" target="_blank" role="button">
+                Download MDB
+                <i class="fa fa-download ml-2"></i>
+            </a>
+            <a class="btn btn-outline-white" href="https://mdbootstrap.com/bootstrap-tutorial/" target="_blank" role="button">
+                Start free tutorial
+                <i class="fa fa-graduation-cap ml-2"></i>
+            </a>
+        </div>*@
+    <!--/.Call to action-->
+    <div class="container">
+        <div class="row mt-4" style="justify-content:center;">
+            <!--First column-->
+            @*<div class="col-lg-3 col-md-6">
+                    <h5 class="title mb-3">
+                        <strong>About material design</strong>
+                    </h5>
+                    <p>
+                        Material Design for Bootstrap (MDB) is a powerful Material Design UI KIT for most popular HTML, CSS,
+                        and JS framework - Bootstrap.
+                    </p>
+                </div>*@
+            <!--/.First column-->
+            @*<hr class="w-100 clearfix d-sm-none">*@
+            <!--Second column-->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <h5 class="title mb-3">
+                    <strong>Sản phẩm cung cấp</strong>
+                </h5>
+                <ul>
+                    @foreach (var item in ViewBag.ListCategory)
+                    {
+                        <li><a href="@Url.Action("Products", "Product")?productCategoryId=@item.ProductCategoryId">@item.ProductCategoryName</a></li>
+                    }
+                </ul>
+            </div>
+            <!--/.Second column-->
+            <hr class="w-100 clearfix d-sm-none">
+            <!--Third column-->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <h5 class="title mb-3">
+                    <strong>Hỗ trợ</strong>
+                </h5>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index","Contact")">Liên hệ</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index","About")">Giới thiệu</a>
+                    </li>
+                    @*<li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>*@
+                </ul>
+            </div>
+            <!--/.Third column-->
+            @*<hr class="w-100 clearfix d-sm-none">*@
+            <!--Fourth column-->
+            @*<div class="col-lg-2 col-md-6 ml-auto">
+                    <h5 class="title mb-3">
+                        <strong>Third column</strong>
+                    </h5>
+                    <ul>
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+                </div>*@
+            <!--/.Fourth column-->
+        </div>
+    </div>
+    <hr class="my-4">
+    <!-- Social icons -->
+    <div class="pb-4">
+        <a target="_blank" href="https://www.facebook.com" class="btn-floating btn-sm btn-fb" style="margin:-50px;">
+            <i class="fa fa-facebook mr-3"></i>
+        </a>
+        @*<a href="https://twitter.com/MDBootstrap" target="_blank">
+                <i class="fa fa-twitter mr-3"></i>
+            </a>
+            <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+                <i class="fa fa-youtube mr-3"></i>
+            </a>
+            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+                <i class="fa fa-google-plus mr-3"></i>
+            </a>
+            <a href="https://dribbble.com/mdbootstrap" target="_blank">
+                <i class="fa fa-dribbble mr-3"></i>
+            </a>
+            <a href="https://pinterest.com/mdbootstrap" target="_blank">
+                <i class="fa fa-pinterest mr-3"></i>
+            </a>
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+                <i class="fa fa-github mr-3"></i>
+            </a>
+            <a href="http://codepen.io/mdbootstrap/" target="_blank">
+                <i class="fa fa-codepen mr-3"></i>
+            </a>*@
+    </div>
+    <!-- Social icons -->
+    <!--Copyright-->
+    <div class="footer-copyright py-3" style="background-color: rgba(0,0,0,.2);">
+        © @DateTime.Now.Year Copyright:
+        <a href="@Url.Action("Index","About")" target="_blank"> Công ty TNHH MTV công nghiệp TÂN LONG </a>
+    </div>
+    <!--/.Copyright-->
+</footer>

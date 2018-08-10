@@ -1,0 +1,144 @@
+﻿/* button floating css */
+.btn-floating {
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    width: 47px;
+    height: 47px;
+    position: relative;
+    z-index: 1;
+    vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    margin: 10px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+}
+
+    .btn-floating:hover {
+        -webkit-box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    }
+
+.btn-action {
+    margin-top: -1.44rem;
+    margin-bottom: -1.44rem;
+}
+
+.btn-floating i {
+    display: inline-block;
+    width: inherit;
+    text-align: center;
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 47px;
+}
+
+.btn-floating.btn-sm {
+    width: 36.15385px;
+    height: 36.15385px;
+}
+
+    .btn-floating.btn-sm i {
+        font-size: .96154rem;
+        line-height: 36.15385px;
+    }
+
+[type=reset], [type=submit], button, html [type=button] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+.btn-fb {
+    background-color: #3b5998 !important;
+    color: #fff !important;
+}
+
+.btn-dribbble {
+    background-color: #ec4a89 !important;
+    color: #fff !important;
+}
+
+.btn-pin {
+    background-color: #c61118 !important;
+    color: #fff !important;
+}
+
+.btn-email {
+    background-color: #4b515d !important;
+    color: #fff !important;
+}
+
+.btn-git {
+    background-color: #333 !important;
+    color: #fff !important;
+}
+
+.btn-tw {
+    background-color: #55acee !important;
+    color: #fff !important;
+}
+
+.btn-li {
+    background-color: #0082ca !important;
+    color: #fff !important;
+}
+
+.title-block {
+    margin-bottom: 15px;
+    position: relative;
+    text-align: center;
+}
+
+    .title-block .wrap-content {
+        display: inline-block;
+        background: #fff;
+        padding: 0 15px;
+    }
+
+    .title-block .title-group {
+        margin: 0;
+        text-align: center;
+        text-transform: uppercase;
+        font-style: italic;
+        font-weight: 500;
+        font-size: 28px;
+    }
+
+    .title-block:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 35px;
+        width: 100%;
+        height: 1px;
+        background: #333;
+        z-index: -1;
+    }
+
+    .title-block:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 30px;
+        width: 100%;
+        height: 1px;
+        background: #333;
+        color: black;
+        z-index: -1;
+    }
+
+    .title-block .title-group-note {
+        text-align: center;
+        font-style: italic;
+        font-size: 16px;
+        color: #9c9c9c;
+        margin-top: 10px;
+        font-weight: 400;
+    }

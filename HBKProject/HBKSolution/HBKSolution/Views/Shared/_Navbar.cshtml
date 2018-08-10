@@ -1,0 +1,74 @@
+﻿@using HBKSolution.Services
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+    <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand" href="@Url.Action("Index","Home")">
+            @*<strong>HBK</strong>*@
+            <img style="width:20%;" src="~/Content/images/LogoPNG.png" alt="Nhãn hiệu">
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Left -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item @Html.isNavMenuActive("Index","Home")">
+                    <a class="nav-link" href="@Url.Action("Index","Home")">
+                        Trang chủ
+                        @*<span class="sr-only">(current)</span>*@
+                    </a>
+                </li>
+                <li class="nav-item @Html.isNavMenuActive("Index","About")">
+                    <a class="nav-link" href="@Url.Action("Index","About")">Giới thiệu</a>
+                </li>
+                <li class="nav-item dropdown @Html.isNavMenuActive("Index", "Product")">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sản phẩm</a>
+                    @*<ul class="dropdown-menu" role="menu">
+                            @foreach (var item in ViewBag.ListCategory)
+                            {
+                                <li><a class="dropdown-item" href="@Url.Action("Index", "Product")?productCategoryId=@item.ProductCategoryId">@item.ProductCategoryName</a></li>
+                            }
+                        </ul>*@
+                    @Html.Action("NavDropdownItems", "Home")
+                </li>
+                <li class="nav-item @Html.isNavMenuActive("Index","Contact")">
+                    <a class="nav-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
+                </li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="nav-item @Html.isNavMenuActive("Index","Management")">
+                        <a class="nav-link" href="@Url.Action("Index","Management")">Trang quản lý</a>
+                    </li>
+                }
+            </ul>
+
+            <!-- Right -->
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item">
+                    <a target="_blank" href="https://www.facebook.com" class="nav-link">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                @*<li class="nav-item">
+                        <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>*@
+                @*<li class="nav-item">
+                        <a href="#" class="nav-link border border-light rounded">
+                            <i class="fa fa-sign-in mr-2"></i>Đăng nhập
+                        </a>
+                    </li>*@
+            </ul>
+
+        </div>
+
+    </div>
+</nav>

@@ -1,0 +1,115 @@
+﻿@using HBKSolution.Models
+@model Product
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#carousel-fullpage').css('height', '50vh');
+        });
+    </script>
+}
+
+<section id="product-detail-container" class="my-5">
+    <!-- Page header -->
+    <div class="col-xs-12">
+        <div class="title-block">
+            <div class="wrap-content">
+
+                <h2 class="title-group">CHI TIẾT SẢN PHẨM</h2>
+
+                <div style="font-size:18px;font-weight:500;" class="title-group-note">@Model.ProductName</div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <!--Main layout-->
+    <main class="mt-3 pt-3">
+        <div class="container dark-grey-text mt-5">
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+                <!--Grid column-->
+                <div class="col-md-6 mb-4" style="text-align:center;">
+                    <img src="@Url.Content(Model.ProductExtend.FilePath)" class="img-fluid" alt="">
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-md-6 mb-4">
+                    <!--Content-->
+                    <div class="p-4">
+                        @*<div class="mb-3">
+                            <a href="">
+                                <span class="badge purple mr-1">Category 2</span>
+                            </a>
+                            <a href="">
+                                <span class="badge blue mr-1">New</span>
+                            </a>
+                            <a href="">
+                                <span class="badge red mr-1">Bestseller</span>
+                            </a>
+                        </div>*@
+                        <p class="lead">
+                            @*<span class="mr-1">
+                                <del>$100</del>
+                            </span>*@
+                            <span>Giá: @Model.Price</span>
+                        </p>
+                        <p class="lead font-weight-bold">Mô tả:</p>
+                        <p>
+                            @Model.ProductContent
+                        </p>
+                        <form class="d-flex justify-content-left">
+                            <!-- Default input -->
+                            @*<input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">*@
+                            @*<button class="btn btn-primary btn-md my-0 p" type="submit">
+                                Add to cart
+                                <i class="fa fa-shopping-cart ml-1"></i>
+                            </button>*@
+                        </form>
+                    </div>
+                    <!--Content-->
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+            @*<hr>
+            <!--Grid row-->
+            <div class="row d-flex justify-content-center wow fadeIn">
+                <!--Grid column-->
+                <div class="col-md-6 text-center">
+                    <h4 class="my-4 h4">Additional information</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit voluptates,
+                        quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.
+                    </p>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+                </div>
+                <!--Grid column-->
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->*@
+        </div>
+    </main>
+    <!--Main layout-->
+
+</section>

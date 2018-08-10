@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /*// Small devices (landscape phones, 576px and up)*/
+    @@media (min-width: 576px) {
+        .cards__item {
+            width: 100%;
+        }
+    }
+
+    /*//Medium devices (tablets, 768px and up)*/
+    @@media (min-width: 768px) {
+        .cards__item {
+            width: 50%;
+        }
+    }
+
+    /*// Large devices (desktops, 992px and up)*/
+    @@media (min-width: 992px) {
+        .cards__item {
+            width: 33.33%;
+        }
+    }
+
+    /*// Extra large devices (large desktops, 1200px and up)*/
+    @@media (min-width: 1200px) {
+        .cards__item {
+            width: 25%;
+        }
+    }
+
+    .cards__item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        /*display: flex;*/
+        padding: 1rem;
+    }
+
+        .cards__item ul {
+            margin-bottom: 1rem;
+        }
+
+    .cards {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .cards__item img {
+        height: auto;
+        max-height: 235px;
+    }
+</style>
+
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('#carousel-fullpage').css('height', '50vh');
+        });
+    </script>
+}
+
+<section id="products-container" class="my-5">
+
+    <!-- Page header -->
+    <div class="col-xs-12">
+        <div class="title-block">
+            <div class="wrap-content">
+
+                <h2 class="title-group">SẢN PHẨM</h2>
+
+                <div style="font-size:18px;font-weight:500;" class="title-group-note">@ViewBag.CategoryName</div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <!-- ./Page header -->
+    <!-- Section heading -->
+    @*<h2 class="h1-responsive font-weight-bold text-center my-5">@ViewBag.CategoryName</h2>*@
+    <!-- Section description -->
+    @*<p class="grey-text text-center w-responsive mx-auto mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum quisquam eum porro a pariatur veniam.</p>*@
+
+    <!-- Cards List -->
+    <ul class="cards">
+        @{
+            foreach (var item in ViewBag.ListProduct)
+            {
+                <!-- Card Item -->
+                <li class="cards__item">
+                    <!-- Card -->
+                    <div class="card">
+
+                        <!-- Card image -->
+                        <div class="view overlay">
+                            <img class="card-img-top" src="@Url.Content(item.ProductExtend.FilePath)" alt="Sản phẩm">
+                            <a href="@Url.Action("ProductDetails", "Product")?producId=@item.ProductId">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+
+                        <!-- Button -->
+                        <a href="@Url.Action("ProductDetails", "Product")?producId=@item.ProductId" class="btn-floating btn-action ml-auto mr-4 mdb-color lighten-3"><i class="fa fa-chevron-right pl-1"></i></a>
+
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                            <!-- Title -->
+                            <h4 class="card-title">@item.ProductName</h4>
+                            <hr>
+                            <!-- Text -->
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                        </div>
+
+                        <!-- Card footer -->
+                        <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
+                            <ul class="list-unstyled list-inline font-small">
+                                <li style="cursor:pointer;" class="list-inline-item pr-2 white-text"><i class="fa fa-clock-o pr-1"></i>@item.CreatedDate</li>
+                                <li style="cursor:pointer;" class="list-inline-item pr-2 white-text"><i class="fa fa-eye pr-1" aria-hidden="true"></i>@item.View</li>
+                                @*<li class="list-inline-item pr-2"><a href="#" class="white-text"><i class="fa fa-facebook pr-1"> </i>21</a></li>
+                                    <li class="list-inline-item"><a href="#" class="white-text"><i class="fa fa-twitter pr-1"> </i>5</a></li>*@
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- Card -->
+                </li>
+                <!-- /.Card Item -->
+            }
+        }
+    </ul>
+    <!-- /.Cards List -->
+</section>
