@@ -101,18 +101,16 @@
 
             $('.dataTables_info').hide();
 
-            $('#product-manage-table_filter label').html('Tìm kiếm:<input type="search" class="" placeholder="" aria-controls="product-manage-table" />');
+            $('#product-manage-table_filter label').html('Tìm kiếm:<input type="search" class="" placeholder="Nhập nội dung tìm kiếm..." aria-controls="product-manage-table" />');
 
             $('.dataTables_empty').text('Không có dữ liệu');
 
             $('input[type="search"]').on('keyup', $(document) , function () {
                 var value = this.value.toLowerCase();
-                var categoryId = $('#CategoryDropList').val();
                 $('tbody').empty();
                 if (_listProduct) {
                     var listProduct = _listProduct;
                     listProduct = listProduct.filter(function (item) {
-                        console.log(item.ProductName.toLowerCase());
                         return item.ProductName.toLowerCase().search(value) !== -1
                             || item.View.toString().toLowerCase().search(value) !== -1
                             || item.Price.toString().toLowerCase().search(value) !== -1;

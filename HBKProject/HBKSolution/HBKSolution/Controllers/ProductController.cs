@@ -14,6 +14,7 @@ using System.Web.Script.Serialization;
 
 namespace HBKSolution.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
 
@@ -29,6 +30,7 @@ namespace HBKSolution.Controllers
             _prodCateService = prodCateService;
         }
 
+        [AllowAnonymous]
         // GET: Product
         public ActionResult ProductDetails(int? producId)
         {
@@ -45,7 +47,7 @@ namespace HBKSolution.Controllers
             return View();
         }
 
-
+        [AllowAnonymous]
         // GET: Products
         public ActionResult Products(int? productCategoryId)
         {
@@ -64,7 +66,7 @@ namespace HBKSolution.Controllers
         {
             if (categoryId != null)
             {
-                IEnumerable listProduct = _prodService.GetListProductByCategoryId((int)categoryId).Select(m => new 
+                IEnumerable listProduct = _prodService.GetListProductByCategoryId((int)categoryId).Select(m => new
                 {
                     FilePath = m.ProductExtend.FilePath,
                     ProductName = m.ProductName,
@@ -73,16 +75,41 @@ namespace HBKSolution.Controllers
                     ProductContent = m.ProductContent
                 }).ToList();
 
-                //foreach (var item in _prodService.GetAllProduct())
-                //{
-                //    item.Price = 0;
-                //    _prodService.Save();
-                //}
-
                 return Json(new { listProduct = listProduct });
             }
             return Json(new { listProduct = new List<Product>() });
         }
 
+        [HttpPost]
+        public JsonResult GetAllProductCategory()
+        {
+            IEnumerable listProdCategory = _prodCateService.GetAllProductCatrgory()
+                .OrderByDescending(m => m.CreatedDate).Select(m => new
+                {
+                    ProductCategoryId = m.ProductCategoryId,
+                    FilePath = m.ProductCategoryExtend.FilePath,
+                    ProductCategoryName = m.ProductCategoryName
+                }).ToList();
+            return Json(new { listProdCategory = listProdCategory });
+        }
+
+        [HttpPost]
+        public JsonResult GetProductCategoryById(int? categoryId)
+        {
+            if (categoryId != null)
+            {
+                var category = _prodCateService.GetAllProductCatrgory().Where(m => m.ProductCategoryId == (int)categoryId)
+                    .Select(s => new
+                    {
+                        FilePath = s.ProductCategoryExtend.FilePath,
+                        ProductCategoryId = s.ProductCategoryId,
+                        ProductCategoryName = s.ProductCategoryName,
+                        FolderName = s.FolderName
+                    }).Single();
+
+                return Json(new { success = true, category = category });
+            }
+            return Json(new { success = false });
+        }
     }
 }

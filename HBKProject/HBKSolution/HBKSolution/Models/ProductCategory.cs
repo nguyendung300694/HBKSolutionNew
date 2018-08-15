@@ -19,6 +19,9 @@ namespace HBKSolution.Models
         [Required]
         public DateTime CreatedDate { get; set; }
 
+        [Required, MaxLength(100)]
+        public string FolderName { get; set; }
+
         public virtual ProductCategoryExtend ProductCategoryExtend { get; set; }
         public virtual ICollection<Product> Products { get; set; }
     }

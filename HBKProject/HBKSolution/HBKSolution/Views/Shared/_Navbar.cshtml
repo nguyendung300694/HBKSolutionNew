@@ -1,74 +1,100 @@
 ﻿@using HBKSolution.Services
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-    <div class="container">
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework
+@using HBKSolution.Models
+@{
+    var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+    var userManager = new UserManager<ApplicationUser>(store);
+    ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+}
 
-        <!-- Brand -->
-        <a class="navbar-brand" href="@Url.Action("Index","Home")">
-            @*<strong>HBK</strong>*@
-            <img style="width:20%;" src="~/Content/images/LogoPNG.png" alt="Nhãn hiệu">
-        </a>
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+{
+    @Html.AntiForgeryToken()
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+        <div class="container">
 
-        <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- Brand -->
+            <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                @*<strong>HBK</strong>*@
+                <img style="width:20%;" src="~/Content/images/LogoPNG.png" alt="Nhãn hiệu">
+            </a>
 
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <!-- Left -->
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item @Html.isNavMenuActive("Index","Home")">
-                    <a class="nav-link" href="@Url.Action("Index","Home")">
-                        Trang chủ
-                        @*<span class="sr-only">(current)</span>*@
-                    </a>
-                </li>
-                <li class="nav-item @Html.isNavMenuActive("Index","About")">
-                    <a class="nav-link" href="@Url.Action("Index","About")">Giới thiệu</a>
-                </li>
-                <li class="nav-item dropdown @Html.isNavMenuActive("Index", "Product")">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sản phẩm</a>
-                    @*<ul class="dropdown-menu" role="menu">
-                            @foreach (var item in ViewBag.ListCategory)
-                            {
-                                <li><a class="dropdown-item" href="@Url.Action("Index", "Product")?productCategoryId=@item.ProductCategoryId">@item.ProductCategoryName</a></li>
-                            }
-                        </ul>*@
-                    @Html.Action("NavDropdownItems", "Home")
-                </li>
-                <li class="nav-item @Html.isNavMenuActive("Index","Contact")">
-                    <a class="nav-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
-                </li>
-                @if (Request.IsAuthenticated)
-                {
-                    <li class="nav-item @Html.isNavMenuActive("Index","Management")">
-                        <a class="nav-link" href="@Url.Action("Index","Management")">Trang quản lý</a>
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item @Html.isNavMenuActive("Index","Home")">
+                        <a class="nav-link" href="@Url.Action("Index","Home")">
+                            Trang chủ
+                            @*<span class="sr-only">(current)</span>*@
+                        </a>
                     </li>
-                }
-            </ul>
+                    <li class="nav-item @Html.isNavMenuActive("Index","About")">
+                        <a class="nav-link" href="@Url.Action("Index","About")">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item dropdown @Html.isNavMenuActive("Index", "Product")">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sản phẩm</a>
+                        @*<ul class="dropdown-menu" role="menu">
+                                @foreach (var item in ViewBag.ListCategory)
+                                {
+                                    <li><a class="dropdown-item" href="@Url.Action("Index", "Product")?productCategoryId=@item.ProductCategoryId">@item.ProductCategoryName</a></li>
+                                }
+                            </ul>*@
+                        @Html.Action("NavDropdownItems", "Home")
+                    </li>
+                    <li class="nav-item @Html.isNavMenuActive("Index","Contact")">
+                        <a class="nav-link" href="@Url.Action("Index","Contact")">Liên hệ</a>
+                    </li>
+                    @if (Request.IsAuthenticated && user.IsAdmin)
+                {
+                        <li class="nav-item @Html.isNavMenuActive("Index","CategoryManage") @Html.isNavMenuActive("Index","ProductManage")">
+                            <a class="nav-link" href="@Url.Action("Index","CategoryManage")">Trang quản lý</a>
+                        </li>
+                    }
+                </ul>
 
-            <!-- Right -->
-            <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a target="_blank" href="https://www.facebook.com" class="nav-link">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                </li>
-                @*<li class="nav-item">
-                        <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-                            <i class="fa fa-twitter"></i>
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+                    <li class="nav-item">
+                        <a target="_blank" href="https://www.facebook.com" class="nav-link">
+                            <i class="fa fa-facebook"></i>
                         </a>
-                    </li>*@
-                @*<li class="nav-item">
-                        <a href="#" class="nav-link border border-light rounded">
-                            <i class="fa fa-sign-in mr-2"></i>Đăng nhập
-                        </a>
-                    </li>*@
-            </ul>
+                    </li>
+                    @*<li class="nav-item">
+                            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>*@
+                    @if (Request.IsAuthenticated)
+                    {
+
+                        <li class="nav-item">
+                            <a onclick="javascript:document.getElementById('logoutForm').submit()" class="nav-link border border-light rounded">
+                                <i class="fa fa-sign-out" aria-hidden="true"> Đăng xuất</i>
+                            </a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("Login","Account")" class="nav-link border border-light rounded">
+                                <i class="fa fa-sign-in" aria-hidden="true"> Đăng nhập</i>
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+            </div>
 
         </div>
-
-    </div>
-</nav>
+    </nav>
+}

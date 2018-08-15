@@ -13,6 +13,8 @@ namespace HBKSolution.Services
         ProductCategory GetProductCategoryById(int? id);
         void AddProductCategory(ProductCategory prodCate);
         void AddProductCategoryExtend(ProductCategoryExtend prodCateExtend);
+        void DeleteProductCategory(ProductCategory prodCate);
+        void DeleteCategoryExtend(ProductCategoryExtend prodCateExtend);
         void Save();
     }
 
@@ -34,6 +36,18 @@ namespace HBKSolution.Services
         public void AddProductCategoryExtend(ProductCategoryExtend prodCateExtend)
         {
             _db.ProductCategoryExtends.Add(prodCateExtend);
+            Save();
+        }
+
+        public void DeleteCategoryExtend(ProductCategoryExtend prodCateExtend)
+        {
+            _db.ProductCategoryExtends.Remove(prodCateExtend);
+            Save();
+        }
+
+        public void DeleteProductCategory(ProductCategory prodCate)
+        {
+            _db.ProductCategorys.Remove(prodCate);
             Save();
         }
 

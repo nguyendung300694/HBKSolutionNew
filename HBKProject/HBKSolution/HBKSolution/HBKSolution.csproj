@@ -52,6 +52,10 @@
       <HintPath>..\packages\DataAnnotationsExtensions.MVC.5.0.0.0\lib\net45\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.4.2.5\lib\net45\ImageResizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -263,6 +267,10 @@
     <Compile Include="Migrations\201808091821388_UpdateDB1.Designer.cs">
       <DependentUpon>201808091821388_UpdateDB1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808131601034_UpdateDB4.cs" />
+    <Compile Include="Migrations\201808131601034_UpdateDB4.Designer.cs">
+      <DependentUpon>201808131601034_UpdateDB4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -271,6 +279,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\ProductCategoryExtend.cs" />
+    <Compile Include="Models\ProductCategoryViewModel.cs" />
     <Compile Include="Models\ProductExtend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataAccessService.cs" />
@@ -310,50 +319,6 @@
     <Content Include="Content\images\LogoPNG.png" />
     <Content Include="Content\images\Maynenkhi1.jpg" />
     <Content Include="Content\images\no-image.svg" />
-    <Content Include="Content\images\ProductCategoryImg\Bangtai1.jpg" />
-    <Content Include="Content\images\ProductCategoryImg\bophandieukhien.jpg" />
-    <Content Include="Content\images\ProductCategoryImg\Maynenkhi1.jpg" />
-    <Content Include="Content\images\ProductCategoryImg\thietbitruyendong.jpg" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP1.png" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP2.png" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP3.png" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP4.png" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP5.png" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP6.jpg" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP7.jpg" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP8.jpg" />
-    <Content Include="Content\images\ProductImg\KhiNenThuyLuc\SP9.jpg" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP1.jpg" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP10.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP11.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP12.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP13.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP14.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP15.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP16.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP17.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP18.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP19.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP2.jpg" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP20.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP21.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP22.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP23.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP24.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP25.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP26.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP27.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP3.jpg" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP4.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP5.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP6.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP7.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP8.png" />
-    <Content Include="Content\images\ProductImg\ThietBiCamTayVaDo\SP9.png" />
-    <Content Include="Content\images\ProductImg\ThietBiTruyenDong\SP1.png" />
-    <Content Include="Content\images\ProductImg\ThietBiTruyenDong\SP2.png" />
-    <Content Include="Content\images\ProductImg\ThietBiTruyenDong\SP3.png" />
-    <Content Include="Content\images\ProductImg\ThietBiTruyenDong\SP4.png" />
     <Content Include="Content\images\Slides\Cristo-Redentor-%28Christ-the-Redeemer%29_Galabina-Yordanova_Attraction.JPG" />
     <Content Include="Content\images\Slides\Grand-Canal,-Venice,-Italy2_Lilia-Karakoleva_Attraction.jpg" />
     <Content Include="Content\images\Slides\Kinkaku-ji-Temple_Ivan-zhekov_Attraction.JPG" />
@@ -618,6 +583,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\ProductCategoryImg\" />
+    <Folder Include="Content\images\ProductImg\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
@@ -640,6 +607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808091821388_UpdateDB1.resx">
       <DependentUpon>201808091821388_UpdateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808131601034_UpdateDB4.resx">
+      <DependentUpon>201808131601034_UpdateDB4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

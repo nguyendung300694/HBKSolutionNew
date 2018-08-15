@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace HBKSolution.Controllers
 {
+    [Authorize]
     public class ProductManageController : Controller
     {
         private readonly IProductService _prodService;

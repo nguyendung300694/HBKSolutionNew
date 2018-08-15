@@ -16,6 +16,8 @@ namespace HBKSolution.Services
         void IncreaseProductView(int productId);
         Product GetProductById(int productId);
         IEnumerable<Product> GetListProductByCategoryId(int categoryId);
+        void DeleteListProduct(List<Product> listProd);
+        void DeleteListProductExtend(List<ProductExtend> listProdExtend);
     }
 
     public class ProductService : IProductService
@@ -36,6 +38,18 @@ namespace HBKSolution.Services
         public void CreateProductExtend(ProductExtend productExtend)
         {
             _db.ProductExtends.Add(productExtend);
+        }
+
+        public void DeleteListProduct(List<Product> listProd)
+        {
+            _db.Products.RemoveRange(listProd);
+            Save();
+        }
+
+        public void DeleteListProductExtend(List<ProductExtend> listProdExtend)
+        {
+            _db.ProductExtends.RemoveRange(listProdExtend);
+            Save();
         }
 
         public IEnumerable<Product> GetAllProduct()

@@ -9,15 +9,26 @@ namespace HBKSolution.Services
 {
     public static class Util
     {
-        public static string CreateProductImage(HttpPostedFileBase file, string category)
+        public static string CreateProductImage(HttpPostedFileBase file, string userId)
         {
-            string virtualPath = "~/Content/images/ProductImg/" + category;
+            string virtualPath = "~/Content/images/ProductImg/" + userId;
             string FolderPath = HttpContext.Current.Server.MapPath(virtualPath);
             if (!Directory.Exists(FolderPath))
                 Directory.CreateDirectory(FolderPath);
             //string FilePath = Path.Combine(FolderPath, file.FileName);
             file.SaveAs(Path.Combine(FolderPath, file.FileName));
-            return virtualPath + "/" + file.FileName;
+            return virtualPath + "/" + file.FileName + "?w=708&h=472";
+        }
+
+        public static string CreateProductCategoryImage(HttpPostedFileBase file, string userId)
+        {
+            string virtualPath = "~/Content/images/ProductCategoryImg/" + userId;
+            string FolderPath = HttpContext.Current.Server.MapPath(virtualPath);
+            if (!Directory.Exists(FolderPath))
+                Directory.CreateDirectory(FolderPath);
+            //string FilePath = Path.Combine(FolderPath, file.FileName);
+            file.SaveAs(Path.Combine(FolderPath, file.FileName));
+            return virtualPath + "/" + file.FileName + "?w=300&h=212";
         }
 
         public static string CreateUPhoto(string userId, HttpPostedFileBase file)
@@ -70,13 +81,19 @@ namespace HBKSolution.Services
 
         public static void DeleteFileLocal(string FilePath)
         {
-            if (!FilePath.Equals(DefaultImg()))
+            //if (!FilePath.Equals(DefaultImg()))
+            //{
+            //    FilePath = HttpContext.Current.Server.MapPath(FilePath);
+            //    if (File.Exists(FilePath))
+            //    {
+            //        File.Delete(FilePath);
+            //    }
+            //}
+            var paths = FilePath.Split('?');
+            FilePath = HttpContext.Current.Server.MapPath(paths[0]);
+            if (File.Exists(FilePath))
             {
-                FilePath = HttpContext.Current.Server.MapPath(FilePath);
-                if (File.Exists(FilePath))
-                {
-                    File.Delete(FilePath);
-                }
+                File.Delete(FilePath);
             }
         }
 
