@@ -72,7 +72,8 @@ namespace HBKSolution.Controllers
                     ProductName = m.ProductName,
                     Price = m.Price,
                     View = m.View,
-                    ProductContent = m.ProductContent
+                    ProductContent = m.ProductContent,
+                    ProductId = m.ProductId
                 }).ToList();
 
                 return Json(new { listProduct = listProduct });
@@ -88,7 +89,8 @@ namespace HBKSolution.Controllers
                 {
                     ProductCategoryId = m.ProductCategoryId,
                     FilePath = m.ProductCategoryExtend.FilePath,
-                    ProductCategoryName = m.ProductCategoryName
+                    ProductCategoryName = m.ProductCategoryName,
+                    FolderName = m.FolderName
                 }).ToList();
             return Json(new { listProdCategory = listProdCategory });
         }
@@ -108,6 +110,28 @@ namespace HBKSolution.Controllers
                     }).Single();
 
                 return Json(new { success = true, category = category });
+            }
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public JsonResult GetProductById(int? productId)
+        {
+            if (productId != null)
+            {
+                var product = _prodService.GetAllProduct().Where(m => m.ProductId == (int)productId)
+                    .Select(s => new
+                    {
+                        FilePath = s.ProductExtend.FilePath,
+                        ProductName = s.ProductName,
+                        Price = s.Price,
+                        View = s.View,
+                        ProductContent = s.ProductContent,
+                        ProductId = s.ProductId,
+                        ProductCategoryId = s.ProductCategoryId
+                    }).Single();
+
+                return Json(new { success = true, product = product });
             }
             return Json(new { success = false });
         }

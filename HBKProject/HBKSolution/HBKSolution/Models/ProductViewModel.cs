@@ -2,38 +2,35 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace HBKSolution.Models
 {
-    [Table("tblProduct")]
-    public class Product
+    public class ProductViewModel
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; }
 
-        [ForeignKey("ProductCategory")]
         public int ProductCategoryId { get; set; }
 
-        [Required, MaxLength(200)]
+        [Required, StringLength(200)]
         public string ProductName { get; set; }
 
-        [MaxLength(4000)]
+        [StringLength(4000)]
         public string ProductContent { get; set; }
 
         [Required]
-        public DateTime CreatedDate { get; set; }
+        public HttpPostedFileBase FileUpload { get; set; }
 
         [DefaultValue(0)]
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; } = 0;
 
-        [Range(0,int.MaxValue)]
+        [Range(0, int.MaxValue)]
         [DefaultValue(0)]
         public int View { get; set; } = 0;
 
-        public virtual ProductExtend ProductExtend { get; set; }
-        public virtual ProductCategory ProductCategory { get; set; }
+        public bool IsAdd { get; set; }
     }
 }

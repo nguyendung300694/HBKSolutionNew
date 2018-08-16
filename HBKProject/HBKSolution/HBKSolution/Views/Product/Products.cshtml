@@ -55,10 +55,20 @@
         padding: 0;
     }
 
-
     .cards__item img {
         height: auto;
         max-height: 235px;
+    }
+
+    .block-with-text {
+        display: block;
+        display: -webkit-box;
+        max-width: 200px;
+        max-height: 109.2px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>
 
@@ -118,7 +128,7 @@
                             <h4 class="card-title">@item.ProductName</h4>
                             <hr>
                             <!-- Text -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text block-with-text">@item.ProductContent</p>
 
                         </div>
 

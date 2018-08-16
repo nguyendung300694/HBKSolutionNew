@@ -40,7 +40,7 @@
                     <li class="nav-item @Html.isNavMenuActive("Index","About")">
                         <a class="nav-link" href="@Url.Action("Index","About")">Giới thiệu</a>
                     </li>
-                    <li class="nav-item dropdown @Html.isNavMenuActive("Index", "Product")">
+                    <li class="nav-item dropdown @Html.isNavMenuActive("Products", "Product") @Html.isNavMenuActive("ProductDetails", "Product")">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sản phẩm</a>
                         @*<ul class="dropdown-menu" role="menu">
                                 @foreach (var item in ViewBag.ListCategory)

@@ -109,6 +109,17 @@
         -webkit-perspective: 1000px;
         perspective: 1000px;
     }
+
+    .block-with-text {
+        display: block;
+        display: -webkit-box;
+        max-width: 200px;
+        max-height: 109.2px;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 </style>
 
 <!-- Section: Products v.4 -->
@@ -209,7 +220,7 @@
         <div class="carousel-inner" role="listbox">
             <!-- First slide -->
             @{
-                if (@ViewBag.ListHotProduct.Count > 0)
+                if (@ViewBag.ListHotProduct.Count == 9)
                 {
                     int index = 0;
                     for (int i = 0; i < 3; i++)
@@ -222,7 +233,7 @@
                                     <!-- Card image -->
                                     <div class="view view-cascade overlay">
                                         <img src="@Url.Content(@ViewBag.ListHotProduct[index].ProductExtend.FilePath)" class="card-img-top" alt="sample photo">
-                                        <a>
+                                        <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index].ProductId">
                                             <div class="mask rgba-white-slight"></div>
                                         </a>
                                     </div>
@@ -233,13 +244,13 @@
                                         <a href="@Url.Action("Products","Product")?productCategoryId=@ViewBag.ListHotProduct[index].ProductCategory.ProductCategoryId" class="text-muted">
                                             <h5>@ViewBag.ListHotProduct[index].ProductCategory.ProductCategoryName</h5>
                                         </a>
-                                        <h4 class="card-title my-4">
+                                        <h4 class="card-title my-2">
                                             <strong>
                                                 <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index].ProductId">@ViewBag.ListHotProduct[index].ProductName</a>
                                             </strong>
                                         </h4>
                                         <!-- Description -->
-                                        <p class="card-text">
+                                        <p class="card-text block-with-text">
                                             @ViewBag.ListHotProduct[index].ProductContent
                                         </p>
                                         <!-- Card footer -->
@@ -262,7 +273,7 @@
                                     <!-- Card image -->
                                     <div class="view view-cascade overlay">
                                         <img src="@Url.Content(@ViewBag.ListHotProduct[index+1].ProductExtend.FilePath)" class="card-img-top" alt="sample photo">
-                                        <a>
+                                        <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index+1].ProductId">
                                             <div class="mask rgba-white-slight"></div>
                                         </a>
                                     </div>
@@ -273,13 +284,13 @@
                                         <a href="@Url.Action("Products","Product")?productCategoryId=@ViewBag.ListHotProduct[index+1].ProductCategory.ProductCategoryId" class="text-muted">
                                             <h5>@ViewBag.ListHotProduct[index + 1].ProductCategory.ProductCategoryName</h5>
                                         </a>
-                                        <h4 class="card-title my-4">
+                                        <h4 class="card-title my-2">
                                             <strong>
                                                 <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index+1].ProductId">@ViewBag.ListHotProduct[index + 1].ProductName</a>
                                             </strong>
                                         </h4>
                                         <!-- Description -->
-                                        <p class="card-text">
+                                        <p class="card-text block-with-text">
                                             @ViewBag.ListHotProduct[index + 1].ProductContent
                                         </p>
                                         <!-- Card footer -->
@@ -302,7 +313,7 @@
                                     <!-- Card image -->
                                     <div class="view view-cascade overlay">
                                         <img src="@Url.Content(@ViewBag.ListHotProduct[index+2].ProductExtend.FilePath)" class="card-img-top" alt="sample photo">
-                                        <a>
+                                        <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index+2].ProductId">
                                             <div class="mask rgba-white-slight"></div>
                                         </a>
                                     </div>
@@ -313,13 +324,13 @@
                                         <a href="@Url.Action("Products","Product")?productCategoryId=@ViewBag.ListHotProduct[index+2].ProductCategory.ProductCategoryId" class="text-muted">
                                             <h5>@ViewBag.ListHotProduct[index + 2].ProductCategory.ProductCategoryName</h5>
                                         </a>
-                                        <h4 class="card-title my-4">
+                                        <h4 class="card-title my-2">
                                             <strong>
                                                 <a href="@Url.Action("ProductDetails", "Product")?producId=@ViewBag.ListHotProduct[index+2].ProductId">@ViewBag.ListHotProduct[index + 2].ProductName</a>
                                             </strong>
                                         </h4>
                                         <!-- Description -->
-                                        <p class="card-text">
+                                        <p class="card-text block-with-text">
                                             @ViewBag.ListHotProduct[index + 2].ProductContent
                                         </p>
                                         <!-- Card footer -->

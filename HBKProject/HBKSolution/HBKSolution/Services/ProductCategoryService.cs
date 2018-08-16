@@ -15,7 +15,9 @@ namespace HBKSolution.Services
         void AddProductCategoryExtend(ProductCategoryExtend prodCateExtend);
         void DeleteProductCategory(ProductCategory prodCate);
         void DeleteCategoryExtend(ProductCategoryExtend prodCateExtend);
+        ProductCategoryExtend GetProductCategoryExtendByCategoryId(int catagoryId);
         void Save();
+        ProductCategory GetProductCategoryByCateId(int prodCateId);
     }
 
     public class ProductCategoryService : IProductCategoryService
@@ -42,13 +44,11 @@ namespace HBKSolution.Services
         public void DeleteCategoryExtend(ProductCategoryExtend prodCateExtend)
         {
             _db.ProductCategoryExtends.Remove(prodCateExtend);
-            Save();
         }
 
         public void DeleteProductCategory(ProductCategory prodCate)
         {
             _db.ProductCategorys.Remove(prodCate);
-            Save();
         }
 
         public IEnumerable<ProductCategory> GetAllProductCatrgory()
@@ -56,9 +56,19 @@ namespace HBKSolution.Services
             return _db.ProductCategorys;
         }
 
+        public ProductCategory GetProductCategoryByCateId(int prodCateId)
+        {
+            return _db.ProductCategorys.Where(m => m.ProductCategoryId == prodCateId).Single();
+        }
+
         public ProductCategory GetProductCategoryById(int? id)
         {
             return _db.ProductCategorys.Find(id);
+        }
+
+        public ProductCategoryExtend GetProductCategoryExtendByCategoryId(int catagoryId)
+        {
+            return _db.ProductCategoryExtends.Where(m=>m.ProductCategoryId == catagoryId).Single();
         }
 
         public void Save()

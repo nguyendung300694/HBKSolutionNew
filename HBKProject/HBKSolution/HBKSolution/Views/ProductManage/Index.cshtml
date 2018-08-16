@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HBKSolution.Models.ProductViewModel
+
+@{
     ViewBag.Title = "Quản lý sản phẩm";
     Layout = "~/Views/Shared/_ManagementLayout.cshtml";
 }
@@ -36,7 +38,12 @@
 
 <div class="form-group control-panel">
     @Html.DropDownList("CategoryDropList", new SelectList(ViewBag.ListCategory, "ProductCategoryId", "ProductCategoryName"), "Chọn loại sản phẩm", new { @class = "form-control col-md-5" })
-    <button type="button" class="btn btn-sm btn-success waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add item">
+    <button type="button"
+            class="btn btn-sm btn-primary waves-effect waves-light"
+            data-toggle="tooltip"
+            data-placement="top"
+            id="show-add-modal"
+            title="" data-original-title="Add item">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </button>
 </div>
@@ -52,7 +59,7 @@
                         <!-- Table head -->
                         <thead class="mdb-color lighten-5">
                             <tr>
-                                <th width="30%" class="font-weight-bold text-center">
+                                <th width="20%" class="font-weight-bold text-center">
                                     <strong>Hình ảnh</strong>
                                 </th>
                                 <th class="font-weight-bold text-center">
@@ -83,9 +90,66 @@
     <!--Grid column-->
 </div>
 
+<!-- Modal -->
+<div class="modal fade" style="top:5%;overflow-y:scroll;" id="modal-prod" role="dialog">
+    <div class="modal-dialog">
+        @using (Html.BeginForm("AddOrEditProduct", "ProductManage", FormMethod.Post, new { enctype = "multipart/form-data", @id = "form-product" }))
+        {
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="moda-prod-title"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-lg-12">
+                        @Html.HiddenFor(m => m.ProductId)
+                        @Html.HiddenFor(m => m.ProductCategoryId)
+                        @Html.HiddenFor(m => m.IsAdd)
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ProductName, "Tên sản phẩm: ", new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.ProductName, "", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ProductContent, "Mô tả: ", new { @class = "control-label" })
+                            @Html.TextAreaFor(m => m.ProductContent, 3, 0, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Price, "Giá: ", new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Price, "",
+                           new { @class = "form-control",
+                               @type = "number"})
+                        </div>
+                        <div class="form-group">
+                            <img id="preview" style="width:40%;" src="#" alt="Hình ảnh" />
+                        </div>
+
+                        <button hidden="hidden" type="button" id="btn-edit-image" class="btn btn-warning btn-sm">Sửa ảnh</button>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.FileUpload, "", new { @accept = "", @type = "file", @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btn-action" class="btn btn-success btn-sm"></button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 
 @section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    
     <script>
+        var _listProduct = [];
+        var $modalTitle = $('#moda-prod-title');
+
         $(document).ready(function () {
             var table = $('#product-manage-table').DataTable({
                 "scrollY": "600px",
@@ -97,18 +161,16 @@
                 "responsive": true,
             });
 
-            var _listProduct = null;
-
             $('.dataTables_info').hide();
 
             $('#product-manage-table_filter label').html('Tìm kiếm:<input type="search" class="" placeholder="Nhập nội dung tìm kiếm..." aria-controls="product-manage-table" />');
 
             $('.dataTables_empty').text('Không có dữ liệu');
 
-            $('input[type="search"]').on('keyup', $(document) , function () {
+            $('input[type="search"]').on('keyup', $(document), function () {
                 var value = this.value.toLowerCase();
                 $('tbody').empty();
-                if (_listProduct) {
+                if (_listProduct.length) {
                     var listProduct = _listProduct;
                     listProduct = listProduct.filter(function (item) {
                         return item.ProductName.toLowerCase().search(value) !== -1
@@ -123,38 +185,245 @@
             $('#CategoryDropList').change(function (e) {
                 var categoryId = $(this).val();
                 $('tbody').empty();
+                $.blockUI();
                 $.post('@Url.Action("GetListProductByCategoryId", "Product")', { categoryId: categoryId },
                 function (result) {
                     if (result.listProduct) {
                         _listProduct = result.listProduct;
                         onAddRowToTable(result.listProduct);
                     }
+                }).always(function () {
+                    $.unblockUI();
+                }).fail(function () {
+                    bootbox.alert('Vui lòng thử lại');
                 });
             });
 
-            function onAddRowToTable(listProduct) {
-                var tr;
-                //Append each row to html table
-                for (var i = 0; i < listProduct.length; i++) {
-                    tr = $('<tr/>');
-                    var path = listProduct[i].FilePath;
-                    if (path) {
-                        path = path.substring(2);
-                    }
-                    tr.append('<td scope="row" class="text-center">' + '<img style="width:50%;" src="../' + path + '" alt="" class="img-fluid z-depth-0">' + '</td>');
-                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].ProductName + '</p>' + '</td>');
-                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].ProductContent + '</p>' + '</td>');
-                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].Price + '</p>' + '</td>');
-                    tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].View + '</p>' + '</td>');
-                    tr.append('<td class="text-center">' + '<button type="button" class="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="" ' +
-                        ' data-original-title="Edit item"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><button type="button" ' +
-                        ' class="btn btn-sm btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" ' +
-                        ' title="" data-original-title="Remove item"><i class="fa fa-trash" aria-hidden="true"></i></button>' + '</td>');
-                    $('tbody').append(tr);
+            $("#FileUpload").change(function () {
+                readIMG(this);
+            });
+
+            $('#modal-prod').on('hidden.bs.modal', function () {
+                resetForm();
+            });
+
+            $('#show-add-modal').click(function () {
+                if ($('#CategoryDropList').val()) {
+                    $modalTitle.text('Thêm sản phẩm');
+                    $('#btn-action').text('Thêm');
+                    $('#btn-action').removeClass('btn-warning');
+                    $('#btn-action').addClass('btn-success');
+                    $('#ProductCategoryId').val($('#CategoryDropList').val());
+                    $('#IsAdd').val(true);
+                    onShowModal();
+                } else {
+                    bootbox.alert('Yêu cầu chọn loại sản phẩm!');
                 }
-            };
+            });
+
+            $('#btn-edit-image').click(function () {
+                if ($('#FileUpload').is(':hidden')) {
+                    $('#btn-edit-image').text('Hủy bỏ');
+                    $('#FileUpload').removeAttr('hidden', 'hidden');
+                    $('#FileUpload').removeAttr('disabled', 'disabled');
+                } else {
+                    $('#btn-edit-image').text('Sửa ảnh');
+                    $('#FileUpload').attr('hidden', 'hidden');
+                    $('#FileUpload').attr('disabled', 'disabled');
+                }
+            });
+
+
+            $('#form-product').submit(function (event) {
+                event.preventDefault();
+                if ($(this).valid()) {
+                    onBegin();
+                    var formdata = new FormData($(this).get(0));
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        success: function (result) {
+                            onSuccess(result);
+                        },
+                        complete: function () {
+                            onComplete();
+                        },
+                        fail: function () {
+                            onFailure();
+                        }
+                    });
+                }
+                return false;
+            });
         });
 
+        function readIMG(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function onShowModal() {
+            $('#modal-prod').modal('show');
+        }
+
+        function onHideModal() {
+            $('#modal-prod').modal('hide');
+        }
+
+        function resetForm() {
+            $('#form-product')[0].reset();
+            $('#form-product').find('input').removeClass('input-validation-error');
+            $('#FolderName').removeAttr('disabled');
+            $('#preview').attr('src', '');
+            $('#FileUpload').removeAttr('disabled', 'disabled');
+            $('#FileUpload').removeAttr('hidden', 'hidden');
+            $('#btn-edit-image').attr('hidden', 'hidden');
+            $('#btn-edit-image').text('Sửa ảnh');
+        }
+
+
+        function onAddRowToTable(listProduct) {
+            var tr;
+            //Append each row to html table
+            for (var i = 0; i < listProduct.length; i++) {
+                tr = $('<tr/>');
+                var path = listProduct[i].FilePath;
+                if (path) {
+                    path = path.substring(2);
+                }
+                tr.append('<td class="text-center" style="display:none;">' + '<p class="prodId">' + listProduct[i].ProductId + '</p>' + '</td>');
+                tr.append('<td scope="row" class="text-center">' + '<img style="width:50%;" src="../' + path + '" alt="" class="img-fluid z-depth-0">' + '</td>');
+                tr.append('<td class="text-center">' + '<p class="block-with-text">' + listProduct[i].ProductName + '</p>' + '</td>');
+                tr.append('<td class="text-center">' + '<p class="block-with-text">' + listProduct[i].ProductContent + '</p>' + '</td>');
+                tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].Price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' }) + '</p>' + '</td>');
+                tr.append('<td class="text-center">' + '<p class="">' + listProduct[i].View + '</p>' + '</td>');
+                tr.append('<td class="text-center">' + '<button type="button" class="btn btn-sm btn-warning waves-effect waves-light" data-toggle="tooltip" onclick="onShowEditModal(event)" data-placement="top" title="" ' +
+                    ' data-original-title="Edit item"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><button type="button" ' +
+                    ' class="btn btn-sm btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" ' +
+                    ' title="" onclick="onDeleteProd(event)" data-original-title="Remove item"><i class="fa fa-trash" aria-hidden="true"></i></button>' + '</td>');
+                $('tbody').append(tr);
+            }
+        };
+
+        function onDeleteProd(e) {
+            e = e || window.event;
+            var $target = $(e.currentTarget).closest('tr');
+            var productId = $target.find('.prodId').text();
+            var categoryId = $('#CategoryDropList').val();
+            var prod = _listProduct.find(function (item) {
+                return item.ProductId == productId;
+            });
+            bootbox.confirm({
+                message: "Bạn muốn xóa sản phẩm: " + prod.ProductName + "?",
+                buttons: {
+                    confirm: {
+                        label: 'Đồng ý',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'Hủy bỏ',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        $.blockUI();
+                        $.post('@Url.Action("DeleteProductById", "ProductManage")', { categoryId: categoryId, productId: productId }, function (result) {
+                            if (result.success) {
+                                var index = _listProduct.findIndex(function (item) {
+                                    return item.ProductId == productId;
+                                });
+                                if (index > -1) {
+                                    _listProduct.splice(index, 1);
+                                }
+                                $('input[type=search]').trigger("keyup");
+                                bootbox.alert('Xóa thành công!');
+                            }
+                        }).always(function () {
+                            $.unblockUI();
+                        }).fail(function () {
+                            bootbox.alert('Vui lòng thử lại');
+                        });
+                    }
+                }
+            });
+        }
+
+        function onShowEditModal(e) {
+            e = e || window.event;
+            $modalTitle.text('Sửa thông tin sản phẩm');
+            $('#btn-action').text('Sửa');
+            $('#btn-action').addClass('btn-warning');
+            $('#btn-action').removeClass('btn-success');
+            $('#FileUpload').attr('disabled', 'disabled');
+            $('#FileUpload').attr('hidden', 'hidden');
+            $('#btn-edit-image').removeAttr('hidden', 'hidden');
+            var $target = $(e.currentTarget).closest('tr');
+            var productId = $target.find('.prodId').text();
+            $('#IsAdd').val(false);
+            $.blockUI();
+            $.post('@Url.Action("GetProductById","Product")', { productId: productId }, function (result) {
+                if (result.success) {
+                    var product = result.product;
+                    var path = '../' + product.FilePath.substring(2);
+                    $('#ProductName').val(product.ProductName);
+                    $('#preview').attr('src', path);
+                    $('#ProductCategoryId').val(product.ProductCategoryId);
+                    $('#ProductId').val(product.ProductId);
+                    $('#Price').val(product.Price);
+                    $('#View').val(product.View);
+                    $('#ProductContent').val(product.ProductContent);
+                } else {
+                    bootbox.alert('Vui lòng thử lại');
+                }
+            }).always(function () {
+                $.unblockUI();
+            }).fail(function () {
+                bootbox.alert('Vui lòng thử lại');
+            });
+            onShowModal();
+        }
+
+        function onSuccess(result) {
+            if (result.success) {
+                if (result.IsAdd) {
+                    _listProduct.unshift(result.product);
+                    bootbox.alert('Thêm thành công!');
+                } else {
+                    var index = _listProduct.map(obj => obj.ProductId).indexOf(result.product.ProductId);
+                    if (index > -1) {
+                        _listProduct.splice(index, 1);
+                        _listProduct.unshift(result.product);
+                        bootbox.alert('Sửa thành công!');
+                    }
+                }
+                $('input[type=search]').trigger("keyup");
+                onHideModal();
+                resetForm();
+            } else {
+                bootbox.alert('Vui lòng thử lại!');
+            }
+        }
+
+        function onFailure() {
+            bootbox.alert('Vui lòng thử lại!');
+        }
+
+        function onBegin(e) {
+            $.blockUI();
+        }
+
+        function onComplete() {
+            $.unblockUI()
+        }
     </script>
 }
 

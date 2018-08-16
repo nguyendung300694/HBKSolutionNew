@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201808131601034_UpdateDB4.Designer.cs">
       <DependentUpon>201808131601034_UpdateDB4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808161602134_UpdateDB5.cs" />
+    <Compile Include="Migrations\201808161602134_UpdateDB5.Designer.cs">
+      <DependentUpon>201808161602134_UpdateDB5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -281,6 +285,7 @@
     <Compile Include="Models\ProductCategoryExtend.cs" />
     <Compile Include="Models\ProductCategoryViewModel.cs" />
     <Compile Include="Models\ProductExtend.cs" />
+    <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataAccessService.cs" />
     <Compile Include="Services\DataProjectService.cs" />
@@ -295,6 +300,7 @@
     <Content Include="Content\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\270x150x4.jpg" />
     <Content Include="Content\images\300x250.jpg" />
@@ -488,6 +494,7 @@
     <None Include="Properties\PublishProfiles\TanLong - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\TanLong - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -500,6 +507,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\mdb.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\polyfiller.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -610,6 +618,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808131601034_UpdateDB4.resx">
       <DependentUpon>201808131601034_UpdateDB4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808161602134_UpdateDB5.resx">
+      <DependentUpon>201808161602134_UpdateDB5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -56,11 +56,14 @@
                         <!-- Table head -->
                         <thead class="mdb-color lighten-5">
                             <tr>
-                                <th width="40%" class="font-weight-bold text-center">
+                                <th width="25%" class="font-weight-bold text-center">
                                     <strong>Hình ảnh</strong>
                                 </th>
-                                <th width="30%" class="font-weight-bold text-center">
+                                <th width="25%" class="font-weight-bold text-center">
                                     <strong>Tên</strong>
+                                </th>
+                                <th width="25%" class="font-weight-bold text-center">
+                                    <strong>Mục lưu trữ</strong>
                                 </th>
                                 <th></th>
                             </tr>
@@ -79,7 +82,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" style="top:5%;" id="modal-prod-category" role="dialog">
+<div class="modal fade" style="top:5%;overflow-y:scroll;" id="modal-prod-category" role="dialog">
     <div class="modal-dialog">
         @using (Html.BeginForm("AddOrEditProductCategory", "CategoryManage", FormMethod.Post, new { enctype = "multipart/form-data", @id = "form-product-category" }))
         {
@@ -116,8 +119,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" id="btn-action" class="btn btn-success btn-sm"></button>
-                    @*<button type="button" id="btn-add" class="btn btn-success btn-sm">Thêm</button>*@
-                    @*<button type="button" id="btn-edit" class="btn btn-warning btn-sm">Sửa</button>*@
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
@@ -167,7 +168,8 @@
                         }
                         tr.append('<td class="text-center" style="display:none;">' + '<p class="cateId">' + listCategory[i].ProductCategoryId + '</p>' + '</td>');
                         tr.append('<td scope="row" class="text-center">' + '<img style="width:50%;" src="../' + path + '" alt="" class="img-fluid z-depth-0">' + '</td>');
-                        tr.append('<td class="text-center">' + '<p class="">' + listCategory[i].ProductCategoryName + '</p>' + '</td>');
+                        tr.append('<td class="text-center">' + '<p class="block-with-text">' + listCategory[i].ProductCategoryName + '</p>' + '</td>');
+                        tr.append('<td class="text-center">' + '<p class="">' + listCategory[i].FolderName + '</p>' + '</td>');
                         tr.append('<td class="text-center">' + '<button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="onShowEditModal(event)" data-toggle="tooltip" data-placement="top" title="" ' +
                             ' data-original-title="Edit item"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><button type="button" ' +
                             ' class="btn btn-sm btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" ' +
@@ -260,7 +262,8 @@
                         }
                         tr.append('<td class="text-center" style="display:none;">' + '<p class="cateId">' + listCategory[i].ProductCategoryId + '</p>' + '</td>');
                         tr.append('<td scope="row" class="text-center">' + '<img style="width:50%;" src="../' + path + '" alt="" class="img-fluid z-depth-0">' + '</td>');
-                        tr.append('<td class="text-center">' + '<p class="">' + listCategory[i].ProductCategoryName + '</p>' + '</td>');
+                        tr.append('<td class="text-center">' + '<p class="block-with-text">' + listCategory[i].ProductCategoryName + '</p>' + '</td>');
+                        tr.append('<td class="text-center">' + '<p class="">' + listCategory[i].FolderName + '</p>' + '</td>');
                         tr.append('<td class="text-center">' + '<button type="button" class="btn btn-sm btn-warning waves-effect waves-light" onclick="onShowEditModal(event)" data-placement="top" ' +
                             ' data-original-title="Edit item"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button><button type="button" ' +
                             ' class="btn btn-sm btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" ' +

@@ -18,6 +18,9 @@ namespace HBKSolution.Services
         IEnumerable<Product> GetListProductByCategoryId(int categoryId);
         void DeleteListProduct(List<Product> listProd);
         void DeleteListProductExtend(List<ProductExtend> listProdExtend);
+        void DeleteProduct(Product prod);
+        void DeleteProductExtend(ProductExtend prodExtend);
+        ProductExtend GetProductExtendByProductId(int prodId);
     }
 
     public class ProductService : IProductService
@@ -38,18 +41,27 @@ namespace HBKSolution.Services
         public void CreateProductExtend(ProductExtend productExtend)
         {
             _db.ProductExtends.Add(productExtend);
+            Save();
         }
 
         public void DeleteListProduct(List<Product> listProd)
         {
             _db.Products.RemoveRange(listProd);
-            Save();
         }
 
         public void DeleteListProductExtend(List<ProductExtend> listProdExtend)
         {
             _db.ProductExtends.RemoveRange(listProdExtend);
-            Save();
+        }
+
+        public void DeleteProduct(Product prod)
+        {
+            _db.Products.Remove(prod);
+        }
+
+        public void DeleteProductExtend(ProductExtend prodExtend)
+        {
+            _db.ProductExtends.Remove(prodExtend);
         }
 
         public IEnumerable<Product> GetAllProduct()
@@ -70,6 +82,11 @@ namespace HBKSolution.Services
         public Product GetProductById(int productId)
         {
             return _db.Products.First(m => m.ProductId == productId);
+        }
+
+        public ProductExtend GetProductExtendByProductId(int prodId)
+        {
+            return _db.ProductExtends.Where(m => m.ProductId == prodId).Single();
         }
 
         public void IncreaseProductView(int productId)

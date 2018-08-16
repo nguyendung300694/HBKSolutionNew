@@ -59,7 +59,8 @@ namespace HBKSolution.Controllers
                     {
                         ProductCategoryName = cate.ProductCategoryName,
                         FilePath = cate.ProductCategoryExtend.FilePath,
-                        ProductCategoryId = cate.ProductCategoryId
+                        ProductCategoryId = cate.ProductCategoryId,
+                        FolderName = cate.FolderName
                     };
 
                     return Json(new { success = true, category = category, IsAdd = true });
@@ -86,7 +87,8 @@ namespace HBKSolution.Controllers
                     {
                         ProductCategoryName = cate.ProductCategoryName,
                         FilePath = cate.ProductCategoryExtend.FilePath,
-                        ProductCategoryId = cate.ProductCategoryId
+                        ProductCategoryId = cate.ProductCategoryId,
+                        FolderName = cate.FolderName
                     };
 
                     return Json(new { success = true, category = category, IsAdd = false });
@@ -101,24 +103,51 @@ namespace HBKSolution.Controllers
         [HttpPost]
         public JsonResult DeleteCategoryById(int? categoryId)
         {
-            if(categoryId!= null)
+            if (categoryId != null)
             {
-                ProductCategory prodCate = _prodCateService.GetProductCategoryById((int)categoryId);
-                if (prodCate != null)
+                //ProductCategory prodCate = _prodCateService.GetProductCategoryById((int)categoryId);
+                //if (prodCate != null)
+                //{
+                //    foreach (var item in prodCate.Products)
+                //    {
+                //        var pathProd = item.ProductExtend.FilePath;
+                //        ProductExtend prodEx = _prodService.GetProductExtendByProductId(item.ProductId);
+                //        _prodService.DeleteProductExtend(prodEx);
+                //        Util.DeleteFileLocal(pathProd);
+                //    }
+                //    List<Product> listProd = new List<Product>();
+                //    listProd = _prodService.GetListProductByCategoryId((int)categoryId).ToList();
+                //    _prodService.DeleteListProduct(listProd);
+                //    _prodService.Save();
+                //    _prodCateService.Save();
+                //    var pathCate = prodCate.ProductCategoryExtend.FilePath;
+                //    ProductCategoryExtend prodCateEx = _prodCateService.GetProductCategoryExtendByCategoryId((int)categoryId);
+                //    _prodCateService.DeleteCategoryExtend(prodCateEx);
+                //    ProductCategory prodCa = _prodCateService.GetProductCategoryById(categoryId);
+                //    _prodCateService.DeleteProductCategory(prodCa);
+                //    //Util.DeleteFileLocal(pathCate);
+                //    _prodCateService.Save();
+
+                //    return Json(new { success = true });
+                //}
+                foreach(var prod in _prodService.GetListProductByCategoryId((int)categoryId))
                 {
-                    List<ProductExtend> listProdExtend = new List<ProductExtend>();
-                    foreach(var item in prodCate.Products)
-                    {
-                        listProdExtend.Add(item.ProductExtend);
-                        Util.DeleteFileLocal(item.ProductExtend.FilePath);
-                    }
-                    _prodService.DeleteListProductExtend(listProdExtend);
-                    _prodService.DeleteListProduct(prodCate.Products.ToList());
-                    Util.DeleteFileLocal(prodCate.ProductCategoryExtend.FilePath);
-                    _prodCateService.DeleteCategoryExtend(prodCate.ProductCategoryExtend);
-                    _prodCateService.DeleteProductCategory(prodCate);
-                    return Json(new { success = true });
+                    Util.DeleteFileLocal(prod.ProductExtend.FilePath);
+                    ProductExtend prodEx = _prodService.GetProductExtendByProductId(prod.ProductId);
+                    _prodService.DeleteProductExtend(prodEx);
                 }
+                List<Product> listProd = new List<Product>();
+                listProd = _prodService.GetListProductByCategoryId((int)categoryId).ToList();
+                _prodService.DeleteListProduct(listProd);
+                _prodService.Save();
+
+                var prodCateEx = _prodCateService.GetProductCategoryExtendByCategoryId((int)categoryId);
+                Util.DeleteFileLocal(prodCateEx.FilePath);
+                _prodCateService.DeleteCategoryExtend(prodCateEx);
+                var prodCate = _prodCateService.GetProductCategoryById((int)categoryId);
+                _prodCateService.DeleteProductCategory(prodCate);
+                _prodCateService.Save();
+                return Json(new { success = true });
             }
             return Json(new { success = false });
         }

@@ -9,9 +9,9 @@ namespace HBKSolution.Services
 {
     public static class Util
     {
-        public static string CreateProductImage(HttpPostedFileBase file, string userId)
+        public static string CreateProductImage(HttpPostedFileBase file, string userId, string folderName)
         {
-            string virtualPath = "~/Content/images/ProductImg/" + userId;
+            string virtualPath = "~/Content/images/ProductImg/" + userId + "/" + folderName;
             string FolderPath = HttpContext.Current.Server.MapPath(virtualPath);
             if (!Directory.Exists(FolderPath))
                 Directory.CreateDirectory(FolderPath);
